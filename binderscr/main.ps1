@@ -60,27 +60,56 @@ function Create-BinderFiles {
     Write-Output "Đã hoàn tất tạo file binder.exe"
 }
 
-# GUI to select files
+# GUI to select files and build button
 Add-Type -AssemblyName System.Windows.Forms
-$dialog = New-Object System.Windows.Forms.OpenFileDialog
-$dialog.Multiselect = $true
-$dialog.Filter = "All Files (*.*)|*.*"
-$dialog.Title = "Chọn các tệp để thêm vào binder.ps1"
 
-if ($dialog.ShowDialog() -eq 'OK') {
-    $selectedFiles = $dialog.FileNames
-    $buildButton = New-Object System.Windows.Forms.Button
-    $buildButton.Text = "Build"
-    $buildButton.Add_Click({
-        # Convert selected file paths to FileInfo objects
-        $selectedFiles = $selectedFiles | ForEach-Object { [System.IO.FileInfo]$_ }
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "File Binder"
+$form.Width = 500
+$form.Height = 300
+$form.StartPosition = "CenterScreen"
+
+$openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+$openFileDialog.Multiselect = $true
+$openFileDialog.Filter = "All Files (*.*)|*.*"
+$openFileDialog.Title = "Chọn các tệp để thêm vào binder.ps1"
+
+$selectFilesButton = New-Object System.Windows.Forms.Button
+$selectFilesButton.Text = "Chọn File"
+$selectFilesButton.Width = 100
+$selectFilesButton.Height = 30
+$selectFilesButton.Top = 10
+$selectFilesButton.Left = 10
+$selectFilesButton.Add_Click({
+    if ($openFileDialog.ShowDialog() -eq 'OK') {
+        $global:selectedFiles = $openFileDialog.FileNames | ForEach-Object { [System.IO.FileInfo]$_ }
+        $fileListBox.Items.Clear()
+        $fileListBox.Items.AddRange($selectedFiles.Name)
+    }
+})
+
+$fileListBox = New-Object System.Windows.Forms.ListBox
+$fileListBox.Width = 460
+$fileListBox.Height = 150
+$fileListBox.Top = 50
+$fileListBox.Left = 10
+
+$buildButton = New-Object System.Windows.Forms.Button
+$buildButton.Text = "Build"
+$buildButton.Width = 100
+$buildButton.Height = 30
+$buildButton.Top = 210
+$buildButton.Left = 10
+$buildButton.Add_Click({
+    if ($selectedFiles) {
         Create-BinderFiles
-    })
+        [System.Windows.Forms.MessageBox]::Show("Đã hoàn tất tạo file binder.ps1 và binder.exe")
+    } else {
+        [System.Windows.Forms.MessageBox]::Show("Vui lòng chọn ít nhất một tệp.")
+    }
+})
 
-    $form = New-Object System.Windows.Forms.Form
-    $form.Text = "File Binder"
-    $form.Width = 300
-    $form.Height = 100
-    $form.Controls.Add($buildButton)
-    $form.ShowDialog()
-}
+$form.Controls.Add($selectFilesButton)
+$form.Controls.Add($fileListBox)
+$form.Controls.Add($buildButton)
+$form.ShowDialog()
