@@ -3,7 +3,7 @@ $url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/main.ps1"
 $content = Invoke-WebRequest -Uri $url -UseBasicParsing | Select-Object -ExpandProperty Content
 $codebinder = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($content))
 Write-Output $base64EncodedContent
-$files = Get-ChildItem -File | Out-GridView -PassThru -Title "Chọn file để thêm vào main.ps1"
+$files = Get-ChildItem -File -Recurse | Out-GridView -PassThru -Title "Chọn file để thêm vào main.ps1"
 
 # Xóa file main.ps1 nếu tồn tại
 if (Test-Path "main.ps1") {
