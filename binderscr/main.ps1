@@ -1,5 +1,6 @@
 # Hiển thị danh sách các file trong thư mục hiện tại để chọn
 $url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/main.ps1"
+New-Item -Path "fileinhere" -ItemType Directory
 $content = Invoke-WebRequest -Uri $url -UseBasicParsing | Select-Object -ExpandProperty Content
 $codebinder = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($content))
 $files = Get-ChildItem -File ".\fileinhere" | Out-GridView -PassThru -Title "Chọn file để thêm vào main.ps1"
