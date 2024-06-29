@@ -1,0 +1,33 @@
+name: Build and Upload binderscr
+
+on:
+  push:
+    paths:
+      - 'binderscr/**'  # Theo dõi các thay đổi trong thư mục tootls/pump
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run PowerShell script
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $workdir = "$env:GITHUB_WORKSPACE"
+          & powershell -ExecutionPolicy Bypass -File "$workdir\binderscr\buildexe.main.ps1"
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add .\binderscr\main.exe
+          git commit -m "Upload pump.exe file"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
