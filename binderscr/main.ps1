@@ -1,5 +1,5 @@
 # URL chứa nội dung cần tải
-$url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/run.ps1"
+$url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/main.ps1"
 
 # Tạo thư mục mới nếu chưa tồn tại
 $directoryPath = ".\fileinhere"
