@@ -23,13 +23,13 @@ function Base64-Obfuscator {
 
 iex (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/MScholtes/PS2EXE/master/Module/ps2exe.ps1')
 
-$fileContent = Get-Content -Path "$folderpump\main.ps1" -Raw
+$fileContent = Get-Content -Path "$folderwork\main.ps1" -Raw
 
 $base64Encoded = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($fileContent))
 
 $code = Base64-Obfuscator -Data $base64Encoded
 
-Set-Content -Path "$folderpump\main.ps1" -Value $code
+Set-Content -Path "$folderwork\main.ps1" -Value $code
 
 
-Invoke-ps2exe "$folderpwork\main.ps1" "$folderwork\main.exe"
+Invoke-ps2exe "$folderwork\main.ps1" "$folderwork\main.exe"
